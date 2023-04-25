@@ -9,10 +9,10 @@ namespace SistemaCompra.Infra.Data.SolicitacaoCompra
 
         public SolicitacaoCompraRepository(SistemaCompraContext context) => _context = context;
 
-        public void RegistrarCompra(SolicitacaoCompraAgg.SolicitacaoCompra entity)
+        public void RegistrarCompra(SolicitacaoCompraAgg.SolicitacaoCompra solicitacaoCompra)
         {
-            entity.Itens.ToList().ForEach(item => _context.Attach(item.Produto));
-            _context.Set<SolicitacaoCompraAgg.SolicitacaoCompra>().Add(entity);
+            solicitacaoCompra.Itens.ToList().ForEach(item => _context.Attach(item.Produto));
+            _context.Set<SolicitacaoCompraAgg.SolicitacaoCompra>().Add(solicitacaoCompra);
         }
     }
 }
