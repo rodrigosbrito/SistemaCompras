@@ -10,7 +10,7 @@ using SistemaCompra.Infra.Data;
 namespace SistemaCompra.API.Migrations
 {
     [DbContext(typeof(SistemaCompraContext))]
-    [Migration("20230425040204_AddSolicitacaoCompra")]
+    [Migration("20230425122510_AddSolicitacaoCompra")]
     partial class AddSolicitacaoCompra
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
