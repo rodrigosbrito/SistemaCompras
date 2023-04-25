@@ -23,3 +23,10 @@ Request utilizada com uma solicitação com Total geral > 50000 e registrando um
 ### Banco de Dados
 Registro das duas inserções no banco atendendo a RN1:
 ![Banco de dados](https://github.com/rodrigosbrito/SistemaCompras/blob/develop/prints/sql_query_solicitacoes.PNG?raw=true)
+
+### Possíveis Melhorias:
+
+- Criação de um Fail-Fast Validation para os dados inputados pelo usuario.
+- Melhorar a forma de Retornar os dados para o usuario, sugestão: utilização de um Result Pattern, assim padronizando os retornos da api.
+- Tratamento de excecoes globais.
+- Adicionar testes para validar as Commands, Querys e Repositorios para ter uma melhor cobertura de testes.
