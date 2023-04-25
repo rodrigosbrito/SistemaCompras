@@ -16,6 +16,7 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         public DateTime Data { get; private set; }
         public Money TotalGeral { get; private set; }
         public Situacao Situacao { get; private set; }
+        public CondicaoPagamento CondicaoPagamento { get; private set; }
 
         private SolicitacaoCompra() { }
 
@@ -26,16 +27,38 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
             NomeFornecedor = new NomeFornecedor(nomeFornecedor);
             Data = DateTime.Now;
             Situacao = Situacao.Solicitado;
+            Itens = new List<Item>();
+            TotalGeral = new Money();
         }
 
-        public void AdicionarItem(Produto produto, int qtde)
+        public void AdicionarItem(Produto produto, int qtde) => Itens.Add(new Item(produto, qtde));
+
+        private void AdicionarTotalGeral(decimal subtotalProduto) => TotalGeral = TotalGeral.Add(new Money(subtotalProduto));
+
+        private void CalcularTotalGeral(IEnumerable<Item> itens)
         {
-            Itens.Add(new Item(produto, qtde));
+            foreach (var item in itens)
+            {
+                AdicionarItem(item.Produto, item.Qtde);
+                AdicionarTotalGeral(item.Subtotal.Value);
+            }
+        }
+
+        private void AdicionarCondicaoPagamento()
+        {
+            if (TotalGeral.Value > 50000m) CondicaoPagamento = new CondicaoPagamento(30);
         }
 
         public void RegistrarCompra(IEnumerable<Item> itens)
         {
-           
+            if (!itens.Any()) throw new BusinessRuleException("A solicitação de compra deve possuir itens!");
+
+            CalcularTotalGeral(itens);
+
+            AdicionarCondicaoPagamento();
+
+            AddEvent(new CompraRegistradaEvent(Id, Itens, TotalGeral.Value));
         }
+        
     }
 }
