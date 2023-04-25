@@ -39,7 +39,7 @@ namespace SistemaCompra.Domain.Test.SolicitacaoCompraAggregate
         }
 
         [Fact]
-        public void CalcularTotalGeralAoComprar1Produto() 
+        public void CalcularTotalGeralAoComprarUmProduto() 
         {
             //Dado
             var solicitacao = new SolicitacaoCompra("rodrigoasth", "rodrigoasth");
@@ -55,7 +55,7 @@ namespace SistemaCompra.Domain.Test.SolicitacaoCompraAggregate
         }
 
         [Fact]
-        public void CalcularTotalGeralCom2Produtos() 
+        public void CalcularTotalGeralComMaisProdutos() 
         {
             //Dado
             var solicitacao = new SolicitacaoCompra("rodrigoasth", "rodrigoasth");
@@ -72,5 +72,43 @@ namespace SistemaCompra.Domain.Test.SolicitacaoCompraAggregate
             Assert.Equal(51050, solicitacao.TotalGeral.Value);
         }
 
+        [Fact]
+        public void AdicionarItemCorretamente()
+        {
+            // Arrange
+            var solicitacaoCompra = new SolicitacaoCompra("rodrigoasth", "rodrigoasth");
+            var produto = new Produto("Cedro", "Transversal 3/3", Categoria.Madeira.ToString(), 1001);
+            int qtde = 5;
+
+            // Act
+            solicitacaoCompra.AdicionarItem(produto, qtde);
+
+            // Assert
+            Assert.Single(solicitacaoCompra.Itens);
+            Assert.Equal(produto, solicitacaoCompra.Itens[0].Produto);
+            Assert.Equal(qtde, solicitacaoCompra.Itens[0].Qtde);
+        }
+
+        [Fact]
+        public void AdicionarMultiplosItensCorretamente()
+        {
+            // Arrange
+            var solicitacaoCompra = new SolicitacaoCompra("rodrigoasth", "rodrigoasth");
+            var produto1 = new Produto("Cedro", "Transversal 3/3", Categoria.Madeira.ToString(), 1001);
+            int qtde1 = 5;
+            var produto2 = new Produto("Nogueira", "Transversal 3/3", Categoria.Madeira.ToString(), 1000);
+            int qtde2 = 3;
+
+            // Act
+            solicitacaoCompra.AdicionarItem(produto1, qtde1);
+            solicitacaoCompra.AdicionarItem(produto2, qtde2);
+
+            // Assert
+            Assert.Equal(2, solicitacaoCompra.Itens.Count);
+            Assert.Equal(produto1, solicitacaoCompra.Itens[0].Produto);
+            Assert.Equal(qtde1, solicitacaoCompra.Itens[0].Qtde);
+            Assert.Equal(produto2, solicitacaoCompra.Itens[1].Produto);
+            Assert.Equal(qtde2, solicitacaoCompra.Itens[1].Qtde);
+        }
     }
 }
