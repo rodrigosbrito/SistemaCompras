@@ -13,11 +13,11 @@ Criar um método, que tem o objetivo de inserir um novo registro no banco de dad
 2.	O total de itens de compra deve ser maior que 0.
 
 ### Request 1
-Request utilizada com uma solicitação com Total geral > 50000 e registrando uma Condicao de Pagamento de 30 dias:
+Request utilizada com uma solicitação com Total geral < 50000 e registrando uma Condicao de Pagamento nula:
 ![Swagger Request Solicitacao 1](https://github.com/rodrigosbrito/SistemaCompras/blob/develop/prints/request_swagger_create_solicitacao.PNG?raw=true)
 
 ### Request 2
-Request utilizada com uma solicitação com Total geral < 50000 e registrando uma Condicao de Pagamento nula:
+Request utilizada com uma solicitação com Total geral > 50000 e registrando uma Condicao de Pagamento de 30 dias:
 ![Swagger Request Solicitacao 2](https://github.com/rodrigosbrito/SistemaCompras/blob/develop/prints/request_swagger_create_solicitacao_2.PNG?raw=true)
 
 ### Banco de Dados
