@@ -5,6 +5,7 @@ using SistemaCompra.Infra.Data.UoW;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using ProdutoAgg = SistemaCompra.Domain.ProdutoAggregate;
 using SolicitacaoCompraAgg = SistemaCompra.Domain.SolicitacaoCompraAggregate;
 
 namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
@@ -12,19 +13,21 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
     public class RegistrarCompraCommandHandler : CommandHandler, IRequestHandler<RegistrarCompraCommand, bool>
     {
         private readonly SolicitacaoCompraAgg.ISolicitacaoCompraRepository _solicitacaoCompraRepository;
-        private readonly IMapper _mapper;
+        private readonly ProdutoAgg.IProdutoRepository _produtoRepository;
 
-        public RegistrarCompraCommandHandler(ISolicitacaoCompraRepository solicitacaoCompraRepository, IUnitOfWork uow, IMediator mediator, IMapper mapper) : base(uow, mediator)
+        public RegistrarCompraCommandHandler(ISolicitacaoCompraRepository solicitacaoCompraRepository, IUnitOfWork uow, IMediator mediator, ProdutoAgg.IProdutoRepository produtoRepository) : base(uow, mediator)
         {
             _solicitacaoCompraRepository = solicitacaoCompraRepository;
-            _mapper = mapper;
+            _produtoRepository = produtoRepository;
         }
 
         public Task<bool> Handle(RegistrarCompraCommand request, CancellationToken cancellationToken)
         {
             var solicitacao = new SolicitacaoCompraAgg.SolicitacaoCompra(request.UsuarioSolicitante, request.NomeFornecedor);
 
-            var itens = _mapper.Map<IEnumerable<Item>>(request.Itens);
+            var itens = new List<Item>();
+            foreach (var item in request.Itens)
+                itens.Add(new Item(_produtoRepository.Obter(item.Produto.Id), item.Qtde));
 
             solicitacao.RegistrarCompra(itens);
             _solicitacaoCompraRepository.RegistrarCompra(solicitacao);

@@ -15,11 +15,5 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
     public class ProdutoViewModel
     {
         public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public string Descricao { get; set; }
-        public decimal Preco { get; set; }
-        public int Categoria { get; set; }
-        public int Situacao { get; set; }
-
     }
 }
