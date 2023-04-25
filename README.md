@@ -6,7 +6,7 @@ O projeto Prova.SISPREV consiste em uma API simples para os objetos Produto e So
 
 ## Objetivo da Prova
 
-Criar um método, que tem o objetivo de inserir um novo registro no banco de dados. De acordo com o contexto do teste, esse método vai inserir um novo Registro de Compra.
+Criar um método, que tem o objetivo de inserir um novo registro no banco de dados. De acordo com o contexto do teste, esse método vai inserir um novo Registro de Compra.
 
 ### Regras de Negócio:
 1.	Se o Total Geral for maior que 50000 a condição de pagamento deve ser 30 dias.
