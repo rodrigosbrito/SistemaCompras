@@ -33,15 +33,10 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         public void AdicionarItem(Produto produto, int qtde) => Itens.Add(new Item(produto, qtde));
 
-        private void AdicionarTotalGeral(decimal subtotalProduto) => TotalGeral = TotalGeral.Add(new Money(subtotalProduto));
-
-        private void CalcularTotalGeral(IEnumerable<Item> itens)
+        public void ObterTotalGeral()
         {
-            foreach (var item in itens)
-            {
-                AdicionarItem(item.Produto, item.Qtde);
-                AdicionarTotalGeral(item.Subtotal.Value);
-            }
+            foreach (var item in Itens)
+               TotalGeral = TotalGeral.Add(item.Subtotal);
         }
 
         private void AdicionarCondicaoPagamento()
@@ -53,7 +48,10 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
         {
             if (!itens.Any()) throw new BusinessRuleException("A solicitação de compra deve possuir itens!");
 
-            CalcularTotalGeral(itens);
+            foreach (var item in itens)
+                AdicionarItem(item.Produto, item.Qtde);
+
+            ObterTotalGeral();
 
             AdicionarCondicaoPagamento();
 
