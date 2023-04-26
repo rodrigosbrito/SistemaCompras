@@ -41,7 +41,10 @@ namespace SistemaCompra.Domain.SolicitacaoCompraAggregate
 
         private void AdicionarCondicaoPagamento()
         {
-            if (TotalGeral.Value > 50000m) CondicaoPagamento = new CondicaoPagamento(30);
+            if (TotalGeral.Value > 50000m) 
+                CondicaoPagamento = new CondicaoPagamento(30);
+            else
+                CondicaoPagamento = new CondicaoPagamento(0);
         }
 
         public void RegistrarCompra(IEnumerable<Item> itens)

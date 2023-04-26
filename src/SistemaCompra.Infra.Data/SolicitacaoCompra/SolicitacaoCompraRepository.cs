@@ -11,7 +11,6 @@ namespace SistemaCompra.Infra.Data.SolicitacaoCompra
 
         public void RegistrarCompra(SolicitacaoCompraAgg.SolicitacaoCompra solicitacaoCompra)
         {
-            solicitacaoCompra.Itens.ToList().ForEach(item => _context.Attach(item.Produto));
             _context.Set<SolicitacaoCompraAgg.SolicitacaoCompra>().Add(solicitacaoCompra);
         }
     }

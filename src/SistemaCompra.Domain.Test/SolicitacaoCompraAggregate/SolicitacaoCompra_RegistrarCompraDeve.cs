@@ -25,6 +25,22 @@ namespace SistemaCompra.Domain.Test.SolicitacaoCompraAggregate
         }
 
         [Fact]
+        public void DefinirPrazo0DiasAoComprarMenos50mil()
+        {
+            //Dado
+            var solicitacao = new SolicitacaoCompra("rodrigoasth", "rodrigoasth");
+            var itens = new List<Item>();
+            var produto = new Produto("Cedro", "Transversal 3/3", Categoria.Madeira.ToString(), 1000);
+            itens.Add(new Item(produto, 50));
+
+            //Quando
+            solicitacao.RegistrarCompra(itens);
+
+            //Então
+            Assert.Equal(0, solicitacao.CondicaoPagamento.Valor);
+        }
+
+        [Fact]
         public void NotificarErroQuandoNaoInformarItensCompra()
         {
             //Dado

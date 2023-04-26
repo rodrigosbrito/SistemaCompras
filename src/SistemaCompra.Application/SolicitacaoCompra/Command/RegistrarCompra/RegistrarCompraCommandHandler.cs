@@ -2,6 +2,7 @@
 using MediatR;
 using SistemaCompra.Domain.SolicitacaoCompraAggregate;
 using SistemaCompra.Infra.Data.UoW;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,9 +27,13 @@ namespace SistemaCompra.Application.SolicitacaoCompra.Command.RegistrarCompra
             var solicitacao = new SolicitacaoCompraAgg.SolicitacaoCompra(request.UsuarioSolicitante, request.NomeFornecedor);
 
             var itens = new List<Item>();
-            foreach (var item in request.Itens)
-                itens.Add(new Item(_produtoRepository.Obter(item.Produto.Id), item.Qtde));
-
+            foreach (var item in request.Itens) 
+            {
+                var produto = _produtoRepository.Obter(item.Produto.Id) 
+                    ?? throw new ArgumentException($"Produto {item.Produto.Id} não encontrado!");
+                itens.Add(new Item(produto, item.Qtde));
+            }
+                
             solicitacao.RegistrarCompra(itens);
             _solicitacaoCompraRepository.RegistrarCompra(solicitacao);
 
