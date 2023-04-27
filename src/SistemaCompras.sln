@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaCompra.CrossCutting"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaCompra.Application.Test", "SistemaCompra.Application.Test\SistemaCompra.Application.Test.csproj", "{A50224AF-A174-4DD1-8BFF-5BA34531D597}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7F8AE8DD-4B21-42A1-A647-725FC6A3C70A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76FEE95F-08DF-4DA4-B989-6CF8341EA6A3} = {7F8AE8DD-4B21-42A1-A647-725FC6A3C70A}
+		{A50224AF-A174-4DD1-8BFF-5BA34531D597} = {7F8AE8DD-4B21-42A1-A647-725FC6A3C70A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {35E335E2-1D74-4DFD-B202-305C1F94F870}
