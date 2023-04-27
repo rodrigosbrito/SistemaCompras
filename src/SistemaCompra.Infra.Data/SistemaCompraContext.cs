@@ -15,20 +15,16 @@ namespace SistemaCompra.Infra.Data
 
         public SistemaCompraContext(DbContextOptions options) : base(options) { }
         public DbSet<ProdutoAgg.Produto> Produtos { get; set; }
-
         public DbSet<SolicitacaoAgg.SolicitacaoCompra> SolicitacaoCompras { get; set; }
+        public DbSet<Item> Itens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<ProdutoAgg.Produto>()
-            //    .HasData(
-            //        new ProdutoAgg.Produto("Produto01", "Descricao01", "Madeira", 100)
-            //    );
-
             modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfiguration(new ProdutoConfiguration());
             modelBuilder.ApplyConfiguration(new SolicitacaoCompraConfiguration());
+            modelBuilder.ApplyConfiguration(new ItemConfiguration());
 
         }
 
